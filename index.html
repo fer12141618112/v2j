@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Black Hole - Plataforma de Videojuegos</title>
+
+<style>
+body{
+  margin:0;
+  font-family:Arial, sans-serif;
+  background-image:url('fondo.jpg');
+  background-size:cover;
+  background-attachment:fixed;
+}
+
+/* HEADER */
+header{
+  position:fixed;
+  top:0;
+  width:100%;
+  background:rgba(0,0,0,0.9);
+  color:white;
+  text-align:center;
+  padding:20px;
+  font-size:32px;
+  font-weight:bold;
+  z-index:1000;
+}
+
+/* NAV */
+nav{
+  position:fixed;
+  top:95px;
+  width:100%;
+  background:rgba(0,0,0,0.75);
+  text-align:center;
+  padding:10px;
+  z-index:999;
+}
+nav button{
+  margin:6px;
+  padding:12px 22px;
+  font-size:16px;
+  border:none;
+  border-radius:6px;
+  background:#056;
+  color:white;
+  cursor:pointer;
+}
+nav button:hover{ background:#034; }
+
+/* BANNERS */
+aside.left, aside.right{
+  position:fixed;
+  top:155px;
+  bottom:0;
+  width:150px;
+}
+aside.left{ left:0; }
+aside.right{ right:0; }
+aside img{ width:100%; height:100%; object-fit:cover; }
+
+/* CONTENT */
+section{
+  margin:165px 170px 20px 170px;
+  padding:30px;
+  height:calc(100vh - 190px);
+  overflow-y:auto;
+  background:rgba(0,0,0,0.65);
+  color:white;
+  border-radius:12px;
+}
+
+/* CARDS */
+.card{
+  background:rgba(255,255,255,0.08);
+  padding:25px;
+  border-radius:12px;
+  margin-bottom:30px;
+  max-width:900px;
+  margin:auto;
+  line-height:1.7;
+  box-shadow:0 0 12px rgba(0,0,0,0.5);
+}
+.card h2, .card h3{ text-align:center; }
+
+/* GAME CARDS */
+.games{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+  gap:20px;
+}
+.game{
+  background:rgba(0,0,0,0.5);
+  padding:15px;
+  border-radius:10px;
+  text-align:center;
+}
+.game img{
+  width:100%;
+  border-radius:8px;
+}
+.game button{
+  margin-top:10px;
+  padding:10px;
+  width:100%;
+  border:none;
+  border-radius:8px;
+  background:#0a7;
+  color:white;
+  font-weight:bold;
+  cursor:pointer;
+}
+.game button:hover{ background:#086; }
+
+/* FORMS */
+input, textarea{
+  width:100%;
+  padding:10px;
+  margin-top:8px;
+  border-radius:6px;
+  border:none;
+}
+
+/* FOOTER */
+footer{
+  text-align:center;
+  padding:10px;
+  color:white;
+  opacity:0.5;
+}
+</style>
+</head>
+
+<body>
+
+<header>BLACK HOLE — Plataforma Mexicana de Videojuegos</header>
+
+<nav>
+  <button onclick="mostrar('inicio')">Inicio</button>
+  <button onclick="mostrar('juegos')">Juegos Exclusivos</button>
+  <button onclick="mostrar('desarrolladores')">Publica tu Juego</button>
+  <button onclick="mostrar('comunidad')">Comunidad</button>
+</nav>
+
+<aside class="left"><img src="banner1.jpg"></aside>
+<aside class="right"><img src="banner2.jpg"></aside>
+
+<section id="contenido"></section>
+
+<script>
+function mostrar(sec){
+let html="";
+
+if(sec=="inicio"){
+html=`
+<div class="card">
+<h2>Bienvenido a Black Hole</h2>
+<p>
+Black Hole es una plataforma mexicana dedicada a la distribución de videojuegos independientes,
+donde los desarrolladores pueden publicar sus proyectos y los jugadores pueden descubrir
+experiencias originales creadas por talento nacional.
+</p>
+<p>
+Nuestra misión es impulsar a nuevos programadores, ofrecer precios accesibles y crear una comunidad
+donde el gaming sea una herramienta de aprendizaje, creatividad y entretenimiento.
+</p>
+</div>
+`;
+}
+
+if(sec=="juegos"){
+html=`
+<div class="card">
+<h2>Juegos Exclusivos Black Hole</h2>
+
+<div class="games">
+
+<div class="game">
+<img src="juego1.png">
+<h3>Desierto Rojo</h3>
+<p>Acción y supervivencia en el norte de México.</p>
+<button onclick="descargar('Desierto_Rojo.txt','Desierto Rojo')">Descargar</button>
+</div>
+
+<div class="game">
+<img src="juego2.png">
+<h3>Nahual: Sombras del Valle</h3>
+<p>Terror basado en leyendas mexicanas.</p>
+<button onclick="descargar('Nahual_Sombras_del_Valle.txt','Nahual: Sombras del Valle')">Descargar</button>
+</div>
+
+<div class="game">
+<img src="juego3.png">
+<h3>Código Jaguar</h3>
+<p>Aventura futurista con historia narrativa.</p>
+<button onclick="descargar('Codigo_Jaguar.txt','Código Jaguar')">Descargar</button>
+</div>
+
+</div>
+</div>
+`;
+}
+
+if(sec=="desarrolladores"){
+html=`
+<div class="card">
+<h2>Publica tu Juego en Black Hole</h2>
+
+<p>
+Si eres desarrollador mexicano y deseas que tu juego tenga mayor alcance,
+Black Hole te ofrece una plataforma para publicar, promocionar y vender tu proyecto.
+</p>
+
+<form id="formJuego">
+
+<label>Nombre del desarrollador:</label>
+<input type="text" id="dev" required>
+
+<label>Nombre del videojuego:</label>
+<input type="text" id="game" required>
+
+<label>Descripción del juego:</label>
+<textarea rows="4" id="desc" required></textarea>
+
+<label>Subir archivo del juego:</label>
+<input type="file" id="archivo" required>
+
+<button type="button" onclick="enviarJuego()" 
+style="margin-top:15px;background:#0a7;border:none;padding:12px;border-radius:8px;color:white;width:100%;font-weight:bold;">
+Enviar solicitud
+</button>
+
+<p id="mensaje" style="margin-top:15px;text-align:center;font-weight:bold;"></p>
+
+</form>
+</div>
+`;
+}
+
+if(sec=="comunidad"){
+html=`
+<div class="card">
+<h2>Comunidad Black Hole</h2>
+<p>
+Nuestra comunidad está formada por jugadores, desarrolladores y creadores de contenido
+que comparten ideas, opiniones y proyectos.
+</p>
+<ul>
+<li>Eventos presenciales y en línea</li>
+<li>Concursos de desarrollo de videojuegos</li>
+<li>Foros y grupos de apoyo</li>
+<li>Colaboraciones entre estudiantes</li>
+</ul>
+<p>
+Creemos que el crecimiento se logra mejor cuando se trabaja en equipo.
+</p>
+</div>
+`;
+}
+
+document.getElementById("contenido").innerHTML = html;
+}
+
+/* DESCARGA SIMULADA */
+function descargar(nombreArchivo, nombreJuego){
+  const texto = 
+`Gracias por descargar ${nombreJuego}
+
+Este archivo es una simulación de descarga
+para el proyecto escolar de la plataforma Black Hole.
+
+Desarrollado por talento mexicano 🇲🇽
+`;
+
+  const blob = new Blob([texto], {type: "text/plain"});
+  const url = URL.createObjectURL(blob);
+
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = nombreArchivo;
+  a.click();
+
+  URL.revokeObjectURL(url);
+}
+
+/* ENVÍO SIMULADO DE JUEGO */
+function enviarJuego(){
+
+  const dev = document.getElementById("dev").value;
+  const game = document.getElementById("game").value;
+  const archivo = document.getElementById("archivo").files[0];
+  const mensaje = document.getElementById("mensaje");
+
+  if(dev=="" || game=="" || !archivo){
+    mensaje.style.color="orange";
+    mensaje.innerText="⚠️ Por favor completa todos los campos y selecciona un archivo.";
+    return;
+  }
+
+  mensaje.style.color="#7CFC90";
+  mensaje.innerHTML = `
+  ✅ Solicitud enviada correctamente <br>
+  <small>Juego: <b>${game}</b></small><br>
+  <small>Archivo: <b>${archivo.name}</b></small>
+  `;
+
+  document.getElementById("formJuego").reset();
+}
+
+mostrar("inicio");
+</script>
+
+<footer>UMB — Universidad Mexiquense del Bicentenario</footer>
+
+</body>
+</html>
